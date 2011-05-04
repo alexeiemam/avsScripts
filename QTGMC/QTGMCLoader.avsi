@@ -1,0 +1,10 @@
+LoadPlugin("verticalcleaner/VerticalCleanerSSE3.dll")
+LoadPlugin("RemoveGrain-1.0/RemoveGrainSSE3.dll")
+LoadPlugin("RemoveGrain-1.0/RepairSSE3.dll")
+LoadPlugin("AddGrainC/AddGrainC.dll")
+LoadPlugin("nnedi3-0.9.2/nnedi3.dll")
+LoadPlugin("maskTools-2.0a48/mt_masktools-26.dll")
+LoadPlugin("MVTools-2.5.11.1/mvtools2.dll")
+# Requires FFT3W.dll to be in windows path
+LoadPlugin("fft3dfilter-2.11/FFT3DFilter.dll")
+Import("QTGMC3.10.avsi")
