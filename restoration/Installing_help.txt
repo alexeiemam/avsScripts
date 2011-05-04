@@ -1,0 +1,46 @@
+==============================================================================
+september 2009
+www.super-8.be
+info@super-8.be
+==============================================================================
+
+
+
+How to install the film restoring script and the plugins.
+=========================================================
+
+1) Create a special folder for the script and plugins only.
+2) Copy the film restoring script to the same folder.
+
+
+Now you should have a folder with the following content:
+--------------------------------------------------------
+AddGrainC.dll
+AGC.dll
+autolevels.dll
+deflicker.dll
+DePan.dll
+DePanEstimate.dll
+fftw3.dll (DepanEstimate needs this)
+film_restoration.avs
+LimitedSharpenFaster.avs
+LimitedSupport_09Jan06B.dll
+MT_Masktools.dll
+MVTools2.dll
+MVTools.dll
+RemoveGrain.dll
+Warpsharp.dll
+
+--------------------------------------------------------
+
+Now you can open the film_restoration.avs from teh plugin folder with your favorite text editor (Notepad works well), and edit the seventh line.
+The one with film="C:\Program Files\PureBasic430\_test files\Nuova cartella\movie_agk.avi" # you must specify the full path of your source file here
+You MUST write after the film= the exact path to your video to restore
+Save the film_restoration.avs and use virtualdub to open it.
+You should got NO error messages. Otherwise you have missed something...
+
+Enjoy the script,
+
+Fred
+
+

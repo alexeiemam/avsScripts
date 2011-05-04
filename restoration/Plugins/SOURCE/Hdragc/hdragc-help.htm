@@ -1,0 +1,215 @@
+<HTML>
+	<HEAD>
+		<TITLE>HDR AGC plugin for AviSynth, High Dynamic Range processing, Contrast 
+			enhancement</TITLE>
+		<style type="text/css"> .hiddenPic {display:none;}
+	</style>
+	</HEAD>
+	<BODY style="COLOR: rgb(0,0,0); BACKGROUND-COLOR: rgb(204,255,255)">
+		<div style="TEXT-ALIGN: center"><font size="6"><span style="FONT-WEIGHT: bold">HDR 
+AGC version&nbsp;1.8.6&nbsp; <font size="6">(for AviSynth)</font></span></font><br>
+		</div>
+		<br>
+		<div style="TEXT-ALIGN: justify"><span style="FONT-WEIGHT: bold">High Dynamic Range Automatic Gain 
+Control</span>
+			- this plugin increase dynamic range of video clips (enhance shadows). It's 
+			"simply" gaining (brightening) dark areas of image without causing blow of 
+			highlights and is doing it by simulating the work of our eyes. Amount of gain 
+			is calculated automatically but you can also influence on it by parameters.<br>
+		</div>
+		<font size="4">
+			<SPAN style="FONT-WEIGHT: bold">
+				<DIV style="TEXT-ALIGN: justify"><br>
+					<a href="http://strony.aster.pl/paviko/Hdragc-1.8.6.zip">Download now!</a></DIV>
+				<DIV style="TEXT-ALIGN: justify">&nbsp;</DIV></SPAN></font><SPAN lang="EN-US" style="FONT-SIZE: 12pt; FONT-FAMILY: 'Times New Roman'; mso-fareast-font-family: 'Times New Roman'; mso-ansi-language: EN-US; mso-fareast-language: PL; mso-bidi-language: AR-SA">
+			<P dir="ltr" style="MARGIN-RIGHT: 0px; TEXT-ALIGN: justify"><SPAN style="FONT-WEIGHT: bold">Discussions thread:</SPAN><BR>
+				<A href="http://forum.doom9.org/showthread.php?t=93571">http://forum.doom9.org/showthread.php?t=93571</A><BR>
+				<br>
+				<span style="FONT-WEIGHT: bold">This plugin support YV12 and YUY2 color sprace.<BR><B></B>Usage:</span><br>
+				<SPAN lang="EN-US" style="FONT-SIZE: 12pt; FONT-FAMILY: 'Times New Roman'">AVISource(...)<BR>SeparateFields() #if 
+content is interlaced<BR><SPAN style="FONT-WEIGHT: bold; COLOR: rgb(255,22,22)">HDRAGC()</SPAN><BR>Weave() #if content 
+is interlaced<BR></SPAN><br>
+				<br>
+				<span style="FONT-WEIGHT: bold">MOST 
+IMPORTANT PARAMETERS:</span><br>
+				<STRONG>coef_gain</STRONG> (default 1.0) - increase parameter to get brighter 
+				image, decrease to limit auto brightening<BR>
+				<STRONG>coef_sat</STRONG> (1.0) - incerease to bring more saturation<BR>
+				<br>
+				<B>TODO for 2.0 version</B><BR>
+				- MMX, SSE, SSE2 optimization<BR>
+				<br>
+				<span style="FONT-WEIGHT: bold">Tips:</span><br>
+				1. I'd like to have brigther results.<BR>
+				Try increasing coef_gain and/or min_gain<BR>
+				2. Image lacks colours saturation after brightening<BR>
+				Try increasing coef_sat parameter<BR>
+				3. I would like to operate only in luma (without changing chrominance channels)<BR>
+				Set max_sat to 1.0<BR>
+				4. When I set coef_sat lower that 1.0, bright area of image are loosing 
+				saturation<BR>
+				Set min_sat to 1.0 (default value id 0.0)<BR>
+				5. Bright areas of image are too much gained<BR>
+				Try corrector parameter - recommended values are (0.8 - 1.0), the lower value 
+				then less gain is applied to brighter part of image<BR>
+				6. Gained parts have too much noise<BR>
+				Try increasing reducer parameter. Default value is 0.5, max is 2.0</P>
+			<P dir="ltr" style="MARGIN-RIGHT: 0px; TEXT-ALIGN: justify"><br>
+				<b>Examples:</b><br>
+				- original shoots taken from this site: <a href="http://www.videomax.ru/tests/" target="_blank">
+					http://www.videomax.ru/tests/</a><br>
+				<br>
+				Parameters for all sample: min_gain = 3.0, coef_sat = 3.0<br>
+				1. Simple gain of low-light scene with local saturation enhancement (original / 
+				HDR AGC)<br>
+				<a href="http://img159.echo.cx/my.php?image=lowlight4de.jpg" target="_blank"><img alt="" src="http://img159.echo.cx/img159/3906/lowlight4de.th.jpg" border="0"></a><a href="http://img98.imageshack.us/my.php?image=lowlighthdr07px.jpg" target="_blank"><img alt="" src="http://img98.imageshack.us/img98/4748/lowlighthdr07px.th.jpg" border="0"></a><br>
+				<br>
+				2. Backlight compensation (Original / Normal gain / HDR AGC)<br>
+				<a href="http://img56.echo.cx/my.php?image=backlight2xs.jpg" target="_blank"><img alt="" src="http://img56.echo.cx/img56/8853/backlight2xs.th.jpg" border="0"></a><a href="http://img98.imageshack.us/my.php?image=backlightnormal02zr.jpg" target="_blank"><img alt="" src="http://img98.imageshack.us/img98/8514/backlightnormal02zr.th.jpg" border="0"></a><a href="http://img98.imageshack.us/my.php?image=backlighthdr07ak.jpg" target="_blank"><img alt="" src="http://img98.imageshack.us/img98/1020/backlighthdr07ak.th.jpg" border="0"></a><br>
+				<br>
+				3. Shadow gaining (Original / Normal gain / HDR AGC)<br>
+				<a href="http://img56.echo.cx/my.php?image=shadow2zb.jpg" target="_blank"><img alt="" src="http://img56.echo.cx/img56/6415/shadow2zb.th.jpg" border="0"></a><a href="http://img463.imageshack.us/my.php?image=shadownormal04mu.jpg" target="_blank"><img alt="" src="http://img463.imageshack.us/img463/3849/shadownormal04mu.th.jpg" border="0"></a><a href="http://img463.imageshack.us/my.php?image=shadowhdr03ox.jpg" target="_blank"><img alt="" src="http://img463.imageshack.us/img463/7428/shadowhdr03ox.th.jpg" border="0"></a><br>
+				<br>
+				<span style="FONT-WEIGHT: bold">Syntax:</span><br>
+				HDRAGC(int avg_lum, float max_gain, float min_gain, float coef_gain, float 
+				max_sat, float min_sat, float coef_sat, int avg_window, int response, int 
+				debug, int mode, int protect, int passes, int shift, bool shadows, int shift_u, 
+				int shift_v, float corrector, float reducer, float black_clip)</P>
+			<P dir="ltr" style="MARGIN-RIGHT: 0px; TEXT-ALIGN: justify"><br>
+				<span style="FONT-WEIGHT: bold">Parameter description:</span><br>
+				<span style="FONT-WEIGHT: bold">avg_lum [int]</span><BR>
+				average luminance to which video should be gained (default - 128 )<BR>
+				<span style="FONT-WEIGHT: bold">max_gain [float]</span><br>
+				maximum gain value which can't be passed by auto control (default 3.0)<br>
+				<span style="FONT-WEIGHT: bold">min_gain [float]</span><br style="FONT-WEIGHT: bold">
+				minimum gain (default 1.0)<br>
+				<span style="FONT-WEIGHT: bold">coef_gain [float]</span><br style="FONT-WEIGHT: bold">
+				How to change auto calculation of gain. Default is 1.0, if you set 1.5 then if 
+				previously plugin was finding 2.0 gain, now it will 2.5 (1.0 + (2.0 - 1.0) * 
+				coef_gain)<br>
+				<span style="FONT-WEIGHT: bold">max_sat [float]</span><br style="FONT-WEIGHT: bold">
+				maximum gain for saturation (default 9.0, 1.0 means no saturation enhancment, 
+				below 1.0&nbsp;- desaturation)<br>
+				<span style="FONT-WEIGHT: bold">min_sat [float]</span><br style="FONT-WEIGHT: bold">
+				minimum saturation enhancment&nbsp;(default 0.0)<br>
+				<span style="FONT-WEIGHT: bold">coef_sat [float]</span><br style="FONT-WEIGHT: bold">
+				how saturation control is connected with gain control, sat = (gain - 1.0) * 
+				coef_sat (default 1.0 - means that if pixel is gained by factor 2.0, saturation 
+				is also gained 2.0). When setting coef_sat below 1.0, look also at min_sat 
+				parameter< BR >
+				<SPAN style="FONT-WEIGHT: bold">mode 
+[int]</SPAN><BR style="FONT-WEIGHT: bold">
+				value&nbsp;0 - algorithm from 0.2 version<BR>
+				value&nbsp;1&nbsp;- new algorithm<BR>
+				value&nbsp;2&nbsp;- new algorithm with some float precision (default), 30% 
+				slower than mode = 1<BR>
+				<SPAN style="FONT-WEIGHT: bold">protect [int]</SPAN><BR style="FONT-WEIGHT: bold">
+				value 0 - no protection for highlights<BR>
+				value 1 - protects highlights from blowing<BR>
+				value&nbsp;2 (default)&nbsp;- plugin automatically choose between 0 (off) and 1 
+				(on)<BR>
+				<SPAN style="FONT-WEIGHT: bold">passes&nbsp;[int]</SPAN><BR style="FONT-WEIGHT: bold">
+				number of interations for mode 0 (values from 1 to 9, default 4)<BR>
+                <strong>black_clip&nbsp;[float]<BR>
+                </strong>value in percents, that force to treat first x% darkest pixels as 
+				black pixels (works as auto shift), recommended values 0.0 - 1.0 (default 
+				0.0)&nbsp;<BR>
+				<STRONG>shift [int]<BR>
+				</STRONG>every luminance value x is shifted down by shift (x = x - shift), 
+				helpfull in low-light, some camcorders brighten image by getin black more gray 
+				(default 0)<BR>
+				<STRONG>shift_u, shift_u&nbsp;[int]</STRONG><BR>
+				parameters for sublte&nbsp;white balance correction, shift_u &lt; 0 - removes 
+				blue tint, shift_u &gt; 0 - removes yellow tint, shift_v &lt; 0 - removes red 
+				tint, shift_v &gt; 0 - removes green tint (default 0)<BR>
+				<STRONG>corrector&nbsp;[float]</STRONG><BR>
+				default 0.0 - auto correction, recommended values 0.8 - 1.0. The lower value 
+				then less bright parts of image are gained (help for high values of gain)<BR>
+				<STRONG>reducer&nbsp;[float]<BR>
+				</STRONG>default 0.5, values from 0.0&nbsp;to 2.0. The higher value the more 
+				noise is removed from gained shadows<BR>
+				<STRONG>shadows&nbsp;[bool]<BR>
+				</STRONG>default true - not only gain but also enhance shadows<BR>
+				<span style="FONT-WEIGHT: bold">avg_window [int]</span><br style="FONT-WEIGHT: bold">
+				number of frames for averaging gain value (default&nbsp;one second = 25 frames 
+				for PAL, 30 frames for NTSC, etc)<br>
+				<span style="FONT-WEIGHT: bold">response [int]</span><br style="FONT-WEIGHT: bold">
+				how much gain value can differ between frames (default 100%, there is no 
+				pumping effect, so it's needed only in special cases)<br>
+				<span style="FONT-WEIGHT: bold">debug 
+[int]</span><br style="FONT-WEIGHT: bold">
+				value 1 displays calculated gain value for frame (default 0)<br>
+                <strong>freezer [int]</strong><br style="FONT-WEIGHT: bold">
+                number of the frame (from 0), that will be taken to calculate all parameters, the
+                parameters are then constant in time (deafult -1, which means that parameters will
+                be calculated for every frame)</P>
+			<DIV style="TEXT-ALIGN: justify"><span style="FONT-WEIGHT: bold">Version changes:</span></DIV>
+			<DIV style="TEXT-ALIGN: justify">
+				<DIV style="TEXT-ALIGN: justify">
+					<DIV style="TEXT-ALIGN: justify">
+                        <strong>Version 1.8.6 - 09.09.2006</strong><DIV style="TEXT-ALIGN: justify">
+                            <strong>&nbsp; &nbsp; - added 'freezer' parameter - number of frame that is choosen
+                                to calculate gain parameters</strong></div>
+                        Version 1.8.5 - 10.06.2006</DIV>
+					<DIV style="TEXT-ALIGN: justify">&nbsp;&nbsp;&nbsp; - added auto shifting 
+						(black_clip parameter)</DIV>
+					<DIV style="TEXT-ALIGN: justify">&nbsp;&nbsp;&nbsp; - avg_lum parameter is back</DIV>
+					<DIV style="TEXT-ALIGN: justify">&nbsp;&nbsp;&nbsp; - new mode (mode = 2), which is 
+						using float precision for some calculations (best quality, now mode = 2 as 
+						default)</DIV>
+					<DIV style="TEXT-ALIGN: justify">&nbsp;&nbsp;&nbsp; - fixed behaviour of coef_gain 
+						(for coef_gain &gt; 1.0 it works as in previous versions)</DIV>
+					<DIV style="TEXT-ALIGN: justify">&nbsp;&nbsp;&nbsp; - tweaked corrector (by default 
+						it's not a bit lower, so if you were using previously x, now try x + 0.1)</DIV>
+					Version 1.8.1 - 13.05.2006</DIV>
+				<DIV style="TEXT-ALIGN: justify">&nbsp;&nbsp;&nbsp; - fixed crash for black frame 
+					(thanks to Boulder)</DIV>
+				Version 1.8 - 13.05.2006</DIV>
+			<DIV style="TEXT-ALIGN: justify">&nbsp;&nbsp;&nbsp; - huge jump in version, huge 
+				jump in quality ;)</DIV>
+			<DIV style="TEXT-ALIGN: justify">&nbsp;&nbsp;&nbsp; - improved old algorithm from 
+				version 0.2.1 (mode = 0), new algorithm (mode = 1) that even for high gains 
+				give natural picture</DIV>
+			<DIV style="TEXT-ALIGN: justify">&nbsp;&nbsp;&nbsp; - added support for YV12 and 
+				YUY2, removed RGB32</DIV>
+			<DIV style="TEXT-ALIGN: justify">&nbsp;&nbsp;&nbsp; - 3 times faster (but still 
+				without MMX, SSE, SSE2 optimizations)</DIV>
+			<DIV style="TEXT-ALIGN: justify">&nbsp;&nbsp;&nbsp; - 10 times less memory usage</DIV>
+			<DIV style="TEXT-ALIGN: justify">&nbsp;&nbsp;&nbsp; - better handling of saturation</DIV>
+			<DIV style="TEXT-ALIGN: justify">&nbsp;&nbsp;&nbsp; - new parameters for sublte 
+				color correction (shift_u, shift_v)<br style="FONT-WEIGHT: bold">
+				Version 0.2.1 - alpha - 25.10.2005:</DIV>
+			<DIV style="TEXT-ALIGN: justify">&nbsp;&nbsp;&nbsp;&nbsp; - fixed 
+				sharpening/denoising (they were turned off when gain was not applied to image)<br>
+				&nbsp;&nbsp;&nbsp; - fixed protect mode<br>
+				Version 0.2.0 - alpha - 23.10.2005:<br>
+				&nbsp;&nbsp;&nbsp; - completely new lighting routin (sigma parameter not 
+				needed)<br>
+				&nbsp;&nbsp;&nbsp; - new mode (mode = 2) in which radius is adaptively choosen, 
+				this removes artifacts as much as I was able to do ;). Slow, but faster and 
+				much, much better than mode = 0<br>
+				&nbsp;&nbsp;&nbsp; - mode = 1 is again 2 times faster (and will be faster 
+				later, still no MMX, SSE&nbsp; optimization)<br>
+				&nbsp;&nbsp;&nbsp; - new parameter - protect - for value = 1 it can help in 
+				some situation with blowing highlights (default on)<br>
+				&nbsp;&nbsp;&nbsp; - new parameters - contrast, limit - for 
+				denoising/sharpening, almost for free - no slow down (experimental)<br>
+				Version 0.1.5 alpha - 21.05.2005:<br>
+				&nbsp;&nbsp;&nbsp; - improvments - 4 times faster with significantly reduced 
+				halo artifacts (if you want old behaviour use parameter mode = 0)<br>
+				Version 0.1.2 alpha - 30.04.2005:<br>
+				&nbsp;&nbsp;&nbsp; - changed lightness distribution routine (less plastic look 
+				- midtones have higher contrast)<br>
+				&nbsp;&nbsp;&nbsp; - new value for auto control of saturation<br>
+				&nbsp;&nbsp;&nbsp; - calculated gain is independent of avg_lum parameter<br>
+				Version 0.1.1 alpha - 29.04.2005:<br>
+				&nbsp;&nbsp;&nbsp; - fixed bug with avg_lum (thanks to AVIL)<br>
+				&nbsp;&nbsp;&nbsp; - small c optimization (thanks to tsp)<br>
+				&nbsp;&nbsp;&nbsp; - new parameters (coef_gain, min_sat, circle)<br>
+				Version 0.1 alpha - 25.04.2005 - first release<br>
+			</DIV>
+			<P style="TEXT-ALIGN: justify"></P>
+			<P dir="ltr" style="MARGIN-RIGHT: 0px; TEXT-ALIGN: justify">&nbsp;</P>
+		</SPAN>
+	</BODY>
+</HTML>

@@ -1,0 +1,150 @@
+==============================================================================
+september 2009
+www.super-8.be
+info@super-8.be
+==============================================================================
+
+
+Film restoring script help file by videoFred.
+=============================================
+
+
+1) How to use Avisynth scripts.
+--------------------------------
+
+You must learn some Avisynth basics first before using my script.
+www.avisynth.org
+
+
+A very easy way to use Avisynth scripts is by using VirtualDubMod.
+VirtualDubMod has a build-in Avisynth script editor.
+Download: http://virtualdubmod.sourceforge.net/
+
+When an Avisynth script is loaded in VDMod you will see the result of the script, as a video file.
+To see the script in the editor, push ctrl+E. The script pops up in a new window.
+You can modify it and when still in the editor window, push f7.
+The modified script is saved and reloaded in VDMod.
+So you see the changes at once without leaving VDMod.
+
+====================================================================================================
+
+
+2) Where to place all the files and plugins.
+--------------------------------------------
+
+Make a separate folder and place the script and all needed DLL and AVS files in it.
+This way, there is no need to use the Avisynth Plugins folder.
+
+My script is using both plugins and functions.
+Plugins are DLL files, functions are written in AVS files.
+This can be confusing, because functions are asking for specific plugins also.
+To see what is all needed to run my script, please look at the #PLUGINS section.
+
+
+3) Film restoring script - general.
+-----------------------------------
+
+I have made this script to improve my transfered 8mm film files.
+My transfer system can be found here: www.super-8.be
+An example clip of what the script can do: http://www.vimeo.com/2823934
+All my clips: http://www.vimeo.com/user678523/videos/sort:newest
+
+The script needs a good quality digital film transfer file to begin with. 
+The file must be frame accurate: one film frame = one AVI frame.
+
+The script will not work good if the original file contains duplicate frames.
+It will also not work good if the original file is interlaced.
+You will have to remove interlacing and/or duplicate frames before using my script.
+
+My script is not made to work with old low resolution film-to-video transfers.
+To improve VHS and other formats, there are other solutions available.
+But if the original film is still available, please concider a new transfer.
+
+===================================================================================================
+
+
+4) Film restoring script - parameters.
+--------------------------------------
+
+All parameters are placed in variables, they are all placed together on top of the script.
+Do not change the names from the parameters! Only change the values.
+These values are always numbers, except for 'result' and 'film'.
+
+FILM:
+Here you must place the source clip. The full path is required.
+The source can be anywhere on your computer, even on an external harddrive.
+
+
+# GENERAL PARAMETERS.
+=====================
+
+
+RESULT
+-------
+
+I have placed this variable at the top of the script.
+So you can change this very fast to see the different results and/or comparisons.
+
+All outputs are stabilized, denoised, resized, cropped and sharpened depending on the parameters.
+Gamma correction, saturation, play speed and frame rate convertion is also applied on all outputs.
+
+Some parameters will only have effect when returning the proper "result"
+For example color settings "blue" and "red" will have no effect when returning "result1".
+
+ result= "result1": both autolevels and autowhite 
+ result= "result2": manual levels, autowhite
+ result= "result3": autolevels, manual color correction
+ result= "result4": manual levels, manual color correction
+ result= "result5": service clip, no need to use it
+ result= "result6": a mix from result3 and the original for those who want some grain.
+ result= "result7": special clip original vs stabilized clip to check the stabilizer.
+
+result= "resultS1": comparisons: original vs modified clips: options S1,S2,S3,S4 and S6
+
+
+
+TRIM_BEGIN,  TRIM_END
+---------------------
+Add here the number of frames you want to remove from the beginning and the end of the clip.
+If you do not want to trim frames, add 0 here.
+
+PLAY_SPEED
+----------
+Your input file can have any play speed, this parameter will change it.
+
+NUMERATOR, DENUMERATOR
+----------------------
+Please do not confuse this with play_speed.
+This is the final frame rate for the output.
+It will create intermediate interpolated frames.
+Sometimes it is great for panning scenes etc.
+Sometimes it fails on very fast moving objects.
+To disable the interpolation, set NUMERATOR to the same value as PLAY_SPEED and set DENUMERATOR to 1
+
+A few examples:
+---------------
+
+Assumed we have a one film frame = one AVI frame file:
+
+Super-8 to standard PAL with interpolation: play_speed= 18, numerator= 25, denumerator= 1
+the play speed will be 18fps, the output will be 25fps progessive
+A standard Mpeg2 encoder will add no duplicates but will interlace it.
+
+Super-8 to standard PAL without interpolation: play-speed=18, numerator=18, denumerator= 1
+the play speed will be 18fps, the output will be 18fps progressive
+A standard Mpeg2 encoder will add duplicates and interlacing.
+
+Super-8 to standard NTSC with interpolation: play_speed= 18, numerator= 30000 denumerator= 1001 
+the play speed will be 18fps, the output will be 30000/1001= 29,97fps progressive
+
+Creating smooth slow motion standard PAl output: play-speed= 6, numerator= 25, denumerator= 1
+
+To disable the interpolation completely:
+----------------------------------------
+delete the code line "interpolated= denoised2.MFlowFps etc....."
+and change this: "sharp3= unsharpmask(denoised2,USM etc..."
+
+With interpolation disabled frame rate convertion can be done in Avisynth with "changeFPS()"
+But any NLE will do this in the time line too.
+
+
