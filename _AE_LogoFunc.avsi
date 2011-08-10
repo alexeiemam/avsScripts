@@ -22,7 +22,7 @@ function Logoise (clip c, float "PixelShape",  string "Position", float "ARbuffe
     # Source Logo Intro Animation Audio & Video Location
     LogoV = AviSource("C:\Video Encoding\_SRC\Logo\Raindance TV Logo.avi").ConvertToRGB32
     AudioStereo = WavSource("C:\Video Encoding\_SRC\Logo\RDTV-Logo-Feature-Stereo.wav")
-    Audio51 = DirectShowSource ("C:\Video Encoding\_SRC\Logo\RDTV-Logo-Feature-51.wav")
+    Audio51 = WavSource ("C:\Video Encoding\_SRC\Logo\RDTV-Logo-Feature-51.wav")
     
     #Logo Aspect Ratio (Source DVPAL, pixelshape = 59/54, here 57/54?)
     DVPALpixel = 59.0/54.0
@@ -109,7 +109,7 @@ function Logoise (clip c, float "PixelShape",  string "Position", float "ARbuffe
     ##Splice
     ######
                         
-    c = (Position == "before") ? Logo++c : (Position == "after") ? c++Logo : (Position == "middle") ? c.Trim(0,c.framecount/2)++Logo++c.Trim(c.framecount/2, c.framecount) : Logo++c
+    c = (Position == "justLogo") ? Logo : (Position == "before") ? Logo++c : (Position == "after") ? c++Logo : (Position == "middle") ? c.Trim(0,c.framecount/2)++Logo++c.Trim(c.framecount/2, c.framecount) : Logo++c
     return c
 }  
 
@@ -208,7 +208,7 @@ function Dimensionise (clip c, float "PixelShape",  string "Position", float "AR
     ######
     ##Splice
     ######
-                        
-    c = (Position == "before") ? Logo++c : (Position == "after") ? c++Logo : (Position == "middle") ? c.Trim(0,c.framecount/2)++Logo++c.Trim(c.framecount/2, c.framecount) : Logo++c
+							
+	c =  (Position == "before") ? Logo++c : (Position == "after") ? c++Logo : (Position == "middle") ? c.Trim(0,c.framecount/2)++Logo++c.Trim(c.framecount/2, c.framecount) : Logo++c
     return c
 }  
