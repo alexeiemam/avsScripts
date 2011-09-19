@@ -106,6 +106,23 @@ global fPAR = float(finalFrameAspect)/(float(widthFinal)/(heightFinal))
 return c.Spline36Resize(widthFinal, heightFinal).ConvertToYV12
 }
 
+function toBlinkbox2(clip c, float TrueAR, float "buf", int "w", int "h")
+{
+widthFinal = Default(w, 720)
+heightFinal = Default(h, 576)
+x = Default(buf, 0.5)
+c = (   ((TrueAR >= ((AR43)*minus(x)))  && (TrueAR <= ((AR43)*plus(x)))) ? c.SetFinalFrameAR(AR43) :
+         \ ((TrueAR >= ((AR169)*minus(x)))  && (TrueAR <= ((AR169)*plus(x)))) ? c.SetFinalFrameAR(AR169):
+         \ (TrueAR < (AR43)) ? c.pillarise(AR43, TrueAR).SetFinalFrameAR(AR43)  : 
+         \ ((TrueAR > (AR43)) && (TrueAR<AR169)) ? c.pixelBattle(TrueAR, AR43, AR169, widthFinal, heightFinal).SetFinalFrameAR(AR43) : 
+         \ ((TrueAR > (AR169))) ? c.letterise(AR169, TrueAR).SetFinalFrameAR(AR169) :      
+         \ c.SetFinalAR(0.0) )
+
+global fPAR = float(finalFrameAspect)/(float(widthFinal)/(heightFinal))
+
+return c.Spline36Resize(widthFinal, heightFinal).ConvertToYV12
+}
+
 #Output: 4:3 Frame, 640x480, square pixels
 function toBlinkx(clip c, float TrueAR, float "buf", int "w", int "h")
 {
